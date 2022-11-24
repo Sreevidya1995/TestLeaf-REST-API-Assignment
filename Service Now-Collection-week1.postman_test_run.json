@@ -1,0 +1,210 @@
+{
+	"id": "24ca19d7-7302-4077-9ab6-c125fccc4d5d",
+	"name": "Service Now-Collection",
+	"timestamp": "2022-11-24T15:35:32.669Z",
+	"collection_id": "24441914-95fe0c34-6d57-468c-8ad8-a1595ee22a62",
+	"folder_id": "24441914-f2bd4767-fa06-452d-bc6d-213f32f2c079",
+	"environment_id": "0",
+	"totalPass": 7,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "27ddf1e2-fed3-416c-b41b-f3c0d5f20097",
+			"name": "Create Incident",
+			"url": "https://dev54247.service-now.com/api/now/table/incident",
+			"time": 729,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				729
+			],
+			"allTests": [
+				{
+					"Status code is 201": true
+				}
+			]
+		},
+		{
+			"id": "47a5c845-a26e-4a5c-804a-09dcbbfdf4b6",
+			"name": "Get Incident List",
+			"url": "https://dev54247.service-now.com/api/now/table/incident?sysparm_limit=100&sys_updated_by=admin&short_description=Creating%20an%20Incident.",
+			"time": 694,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"The Incident created in the 'Create Incident' POST request is present in the Incident List": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"The Incident created in the 'Create Incident' POST request is present in the Incident List": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				694
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"The Incident created in the 'Create Incident' POST request is present in the Incident List": true
+				}
+			]
+		},
+		{
+			"id": "50c53e55-4572-461f-b122-c7b7a31af8a6",
+			"name": "Get an Incident",
+			"url": "https://dev54247.service-now.com/api/now/table/incident/7ef9db6647931110c144bfc7536d43ea",
+			"time": 580,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				580
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "efb75a1d-1da5-4f80-a7d4-be245ecdf071",
+			"name": "Modify Request",
+			"url": "https://dev54247.service-now.com/api/now/table/incident/7ef9db6647931110c144bfc7536d43ea",
+			"time": 634,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				634
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "1b630ef0-6201-4de7-ba1e-bbe70a7750c4",
+			"name": "Delete Incident",
+			"url": "https://dev54247.service-now.com/api/now/table/incident/64a3b8d147931110c144bfc7536d4336",
+			"time": 509,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status code is 204": true
+			},
+			"testPassFailCounts": {
+				"Status code is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				509
+			],
+			"allTests": [
+				{
+					"Status code is 204": true
+				}
+			]
+		},
+		{
+			"id": "04450196-a4bd-492c-bfa1-17dde2585d22",
+			"name": "Validating Deleted Incident removed from Incident List",
+			"url": "https://dev54247.service-now.com/api/now/table/incident/64a3b8d147931110c144bfc7536d4336",
+			"time": 619,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Deleted Incident removed from Incident List": true
+			},
+			"testPassFailCounts": {
+				"Deleted Incident removed from Incident List": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				619
+			],
+			"allTests": [
+				{
+					"Deleted Incident removed from Incident List": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 3765,
+	"collection": {
+		"requests": [
+			{
+				"id": "27ddf1e2-fed3-416c-b41b-f3c0d5f20097",
+				"method": "POST"
+			},
+			{
+				"id": "47a5c845-a26e-4a5c-804a-09dcbbfdf4b6",
+				"method": "GET"
+			},
+			{
+				"id": "50c53e55-4572-461f-b122-c7b7a31af8a6",
+				"method": "GET"
+			},
+			{
+				"id": "efb75a1d-1da5-4f80-a7d4-be245ecdf071",
+				"method": "PUT"
+			},
+			{
+				"id": "1b630ef0-6201-4de7-ba1e-bbe70a7750c4",
+				"method": "DELETE"
+			},
+			{
+				"id": "04450196-a4bd-492c-bfa1-17dde2585d22",
+				"method": "GET"
+			}
+		]
+	}
+}

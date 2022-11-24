@@ -1,0 +1,335 @@
+{
+	"info": {
+		"_postman_id": "95fe0c34-6d57-468c-8ad8-a1595ee22a62",
+		"name": "Service Now-Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24441914"
+	},
+	"item": [
+		{
+			"name": "Incident",
+			"item": [
+				{
+					"name": "Create Incident",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"//Chaining \r",
+									"//Get the complete Json response\r",
+									"Resp = pm.response.json();\r",
+									"\r",
+									"//Use the Json path to get the value and save it to sysId\r",
+									"SysId = Resp.result.sys_id;\r",
+									"\r",
+									"//Save it to the global variable\r",
+									"pm.globals.set(\"G_sysId\",SysId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"short_description\":\"Creating an Incident.\",\r\n    \"description\":\"Creating an incident using API using Postman tool.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{DevUrl}}/api/now/table/incident",
+							"protocol": "https",
+							"host": [
+								"{{DevUrl}}"
+							],
+							"path": [
+								"api",
+								"now",
+								"table",
+								"incident"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Incident List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Validating if Incident created in the previous POST request is present in the Incident List using Loop\r",
+									"pm.test(\"The Incident created in the 'Create Incident' POST request is present in the Incident List\", function () {\r",
+									"    var sys_Id = pm.globals.get(\"G_sysId\");\r",
+									"    var Resp = pm.response.json();\r",
+									"\r",
+									"    for (item of Resp.result){\r",
+									"       if(item.sys_id == sys_Id) {\r",
+									"           var IncidentNumber = item.task_effective_number;\r",
+									"            console.log(\"The \"+IncidentNumber+\" incident created is present in the Incident List\");\r",
+									"       }\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"//Get the entire json\r",
+									"var Resp = pm.response.json();\r",
+									"//Get the count of the arrays\r",
+									"count = Resp.result.length;\r",
+									"//Randomize the count\r",
+									"Ransysid=  _.random(count);\r",
+									"//Apply the random number\r",
+									"var randomValue = Resp.result[Ransysid].sys_id;\r",
+									"pm.globals.set(\"random_SysId\", randomValue);\r",
+									"console.log(randomValue);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{DevUrl}}/api/now/table/incident?sysparm_limit=100&sys_updated_by=admin&short_description=Creating an Incident.",
+							"protocol": "https",
+							"host": [
+								"{{DevUrl}}"
+							],
+							"path": [
+								"api",
+								"now",
+								"table",
+								"incident"
+							],
+							"query": [
+								{
+									"key": "sysparm_limit",
+									"value": "100"
+								},
+								{
+									"key": "sys_updated_by",
+									"value": "admin"
+								},
+								{
+									"key": "short_description",
+									"value": "Creating an Incident."
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get an Incident",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{DevUrl}}/api/now/table/incident/{{G_sysId}}",
+							"protocol": "https",
+							"host": [
+								"{{DevUrl}}"
+							],
+							"path": [
+								"api",
+								"now",
+								"table",
+								"incident",
+								"{{G_sysId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modify Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"short_description\":\"Updating an Incident.\",\r\n    \"description\":\"Modifying the Incident using API using Postman tool.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{DevUrl}}/api/now/table/incident/{{G_sysId}}",
+							"protocol": "https",
+							"host": [
+								"{{DevUrl}}"
+							],
+							"path": [
+								"api",
+								"now",
+								"table",
+								"incident",
+								"{{G_sysId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Incident",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{DevUrl}}/api/now/table/incident/{{random_SysId}}",
+							"protocol": "https",
+							"host": [
+								"{{DevUrl}}"
+							],
+							"path": [
+								"api",
+								"now",
+								"table",
+								"incident",
+								"{{random_SysId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validating Deleted Incident removed from Incident List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Deleted Incident removed from Incident List\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{DevUrl}}/api/now/table/incident/{{random_SysId}}",
+							"protocol": "https",
+							"host": [
+								"{{DevUrl}}"
+							],
+							"path": [
+								"api",
+								"now",
+								"table",
+								"incident",
+								"{{random_SysId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "6uWF@tIz9rX$",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "DevUrl",
+			"value": "dev54247.service-now.com"
+		}
+	]
+}
