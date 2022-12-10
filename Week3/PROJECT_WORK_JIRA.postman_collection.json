@@ -1,0 +1,559 @@
+{
+	"info": {
+		"_postman_id": "27547336-096b-471a-920d-30e42db2280c",
+		"name": "PROJECT_WORK_JIRA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24441914"
+	},
+	"item": [
+		{
+			"name": "Create_Issue",
+			"item": [
+				{
+					"name": "Create_Issue",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Issue is successfully created in Jira\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"Resp = pm.response.json();\r",
+									"responseId = Resp.id;\r",
+									"responseKey = Resp.key;\r",
+									"pm.collectionVariables.set(\"Issue_Id\", responseId);\r",
+									"pm.collectionVariables.set(\"Issue_Key\", responseKey);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fields\": {\r\n    \"project\":\r\n                {\r\n                    \"key\": \"NOV\"\r\n                },\r\n    \"summary\": {{Summary}},\r\n    \"description\": {{Description}},\r\n    \"issuetype\": {\r\n                    \"name\": \"Bug\"\r\n                }\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{JiraUrl}}/rest/api/2/issue",
+							"protocol": "https",
+							"host": [
+								"{{JiraUrl}}"
+							],
+							"path": [
+								"rest",
+								"api",
+								"2",
+								"issue"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search_Issue",
+			"item": [
+				{
+					"name": "Search_Issue_Based_on_IssueID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Issue details is displayed\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{JiraUrl}}/rest/api/2/issue/{{Issue_Id}}",
+							"protocol": "https",
+							"host": [
+								"{{JiraUrl}}"
+							],
+							"path": [
+								"rest",
+								"api",
+								"2",
+								"issue",
+								"{{Issue_Id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search_Issue_Based_on_IssueKey",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Issue details is displayed\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{JiraUrl}}/rest/api/2/issue/{{Issue_Key}}",
+							"protocol": "https",
+							"host": [
+								"{{JiraUrl}}"
+							],
+							"path": [
+								"rest",
+								"api",
+								"2",
+								"issue",
+								"{{Issue_Key}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Edit_Issue",
+			"item": [
+				{
+					"name": "Edit_Issue_Using_IssueID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Issue details is updated\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fields\": {\r\n        \"description\": \"Bug Updating Using REST API for testing\"\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{JiraUrl}}/rest/api/2/issue/{{Issue_Id}}",
+							"protocol": "https",
+							"host": [
+								"{{JiraUrl}}"
+							],
+							"path": [
+								"rest",
+								"api",
+								"2",
+								"issue",
+								"{{Issue_Id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit_Issue_Using_IssueKey",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Issue details is updated\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fields\": {\r\n        \"description\": \"Bug creation Using REST API for testing\"\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{JiraUrl}}/rest/api/2/issue/{{Issue_Key}}",
+							"protocol": "https",
+							"host": [
+								"{{JiraUrl}}"
+							],
+							"path": [
+								"rest",
+								"api",
+								"2",
+								"issue",
+								"{{Issue_Key}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete_Issue",
+			"item": [
+				{
+					"name": "Issues_List_Using_jql",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Issue list is displayed\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var Resp = pm.response.json();\r",
+									"count = Resp.length;\r",
+									"\r",
+									"RanId =  _.random(count);\r",
+									"var randomValue = Resp.issues[RanId].id;\r",
+									"pm.collectionVariables.set(\"Random_Issue_Id\", randomValue);\r",
+									"\r",
+									"console.log(randomValue);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{JiraUrl}}/rest/api/2/search?jql=project=\"NOVBatch\"",
+							"protocol": "https",
+							"host": [
+								"{{JiraUrl}}"
+							],
+							"path": [
+								"rest",
+								"api",
+								"2",
+								"search"
+							],
+							"query": [
+								{
+									"key": "jql",
+									"value": "project=\"NOVBatch\""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete_Issue_Using_IssueID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Issue is deleted\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{JiraUrl}}/rest/api/2/issue/{{Random_Issue_Id}}",
+							"protocol": "https",
+							"host": [
+								"{{JiraUrl}}"
+							],
+							"path": [
+								"rest",
+								"api",
+								"2",
+								"issue",
+								"{{Random_Issue_Id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Issues_List_Using_jql",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Issue list is displayed\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var Resp = pm.response.json();\r",
+									"count = Resp.length;\r",
+									"\r",
+									"RanKey = _.random(_.random(count));\r",
+									"var randomKey = Resp.issues[RanKey].key;\r",
+									"pm.collectionVariables.set(\"Random_Issue_Key\", randomKey);\r",
+									"\r",
+									"console.log(randomKey);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{JiraUrl}}/rest/api/2/search?jql=project=\"NOVBatch\"",
+							"protocol": "https",
+							"host": [
+								"{{JiraUrl}}"
+							],
+							"path": [
+								"rest",
+								"api",
+								"2",
+								"search"
+							],
+							"query": [
+								{
+									"key": "jql",
+									"value": "project=\"NOVBatch\""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete_Issue_Using_IssueKey",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Issue is deleted\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{JiraUrl}}/rest/api/2/issue/{{Random_Issue_Key}}",
+							"protocol": "https",
+							"host": [
+								"{{JiraUrl}}"
+							],
+							"path": [
+								"rest",
+								"api",
+								"2",
+								"issue",
+								"{{Random_Issue_Key}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "List_Issue_Types",
+			"item": [
+				{
+					"name": "List_All_Issue_Types",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"List of All Issues are displayed\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var Resp = pm.response.json();\r",
+									"count = Resp.length;\r",
+									"RanId=  _.random(count);\r",
+									"var randomValue = Resp[RanId].id;\r",
+									"pm.collectionVariables.set(\"IssueType_Id\", randomValue);\r",
+									"console.log(randomValue);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{JiraUrl}}/rest/api/2/issuetype",
+							"protocol": "https",
+							"host": [
+								"{{JiraUrl}}"
+							],
+							"path": [
+								"rest",
+								"api",
+								"2",
+								"issuetype"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search_IssueType",
+			"item": [
+				{
+					"name": "Search_specific_issuetype_using_ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Issue type is displayed\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{JiraUrl}}/rest/api/2/issuetype/{{IssueType_Id}}",
+							"protocol": "https",
+							"host": [
+								"{{JiraUrl}}"
+							],
+							"path": [
+								"rest",
+								"api",
+								"2",
+								"issuetype",
+								"{{IssueType_Id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "17VNWRLUNP20zfcsVWxiDC11",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "sreevidya.hari95@gmail.com",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "JiraUrl",
+			"value": "sreevidyaapi95.atlassian.net"
+		},
+		{
+			"key": "Issue_Id",
+			"value": ""
+		},
+		{
+			"key": "Issue_Key",
+			"value": ""
+		},
+		{
+			"key": "IssueType_Id",
+			"value": ""
+		},
+		{
+			"key": "Random_Issue_Id",
+			"value": ""
+		},
+		{
+			"key": "Random_Issue_Key",
+			"value": ""
+		}
+	]
+}
